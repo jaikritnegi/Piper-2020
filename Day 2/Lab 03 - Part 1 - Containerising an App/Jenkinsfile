@@ -1,9 +1,9 @@
-pipeline {  
+pipeline {
   environment {
     registry = "cloudgeek007/devopspipeline"
-    registryCredential = 'dockerhub'    
-  }  
-  agent any  
+    registryCredential = 'dockerhub'
+  }
+  agent any
   stages {
     stage('Checkout'){
       steps {
@@ -14,7 +14,7 @@ pipeline {
       steps{
         script {
           imageName = registry + ":$BUILD_NUMBER"
-          context = "'./Day 2/Lab 03 - Part 1 - Containerising an App'"  
+          context = "'./Day 2/Lab 03 - Part 1 - Containerising an App'"
           dockerImage = docker.build(imageName, context)
         }
       }
@@ -25,7 +25,7 @@ pipeline {
           docker.withRegistry( '', registryCredential ) {
             dockerImage.push()
             dockerImage.push("latest")
-          }      
+          }
         }
       }
     }
@@ -34,13 +34,5 @@ pipeline {
         sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }
-    stage('Deploy') {
-      agent { label 'dockerwindows' } 
-       steps{
-        sh "docker stop app1"
-        sh "docker rm -f app1"
-        sh "docker run -d -p 5000:5000 --name app1 ${registry}:${BUILD_NUMBER}  "
-      }
-    }  
   }
 }
