@@ -11,4 +11,3 @@ Piper 2020-25 June
 # Piper-2020 April 18-6
 # Piper-2020 April 18-7
 docker run -i -t -p 8888:8888 continuumio/anaconda3 /bin/bash -c “/opt/conda/bin/conda install jupyter -y --quiet && mkdir /opt/notebooks && /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip=’*’ --port=8888 --no-browser --allow-root”
-mongodb+srv://mongouser:3khKkzapBTlft2Tq@cluster0.nzyeg.mongodb.net/test?retryWrites=true&w=majority
